@@ -1,0 +1,49 @@
+{
+  "output_dir": "concrete_crack_research_final",
+  "datasets": {
+    "ccic_slug": "arnavr10880/concrete-crack-images-for-classification",
+    "sdnet_slug": "harishmulchandani2/sdnet2018",
+    "ccic_path": null,
+    "sdnet_path": null,
+    "source_group_csv": null
+  },
+  "training": {
+    "base_seed": 42,
+    "model_seeds": [42, 123, 2024],
+    "tuning_seed": 42,
+    "img_size": [224, 224],
+    "batch_size": 32,
+    "final_batch_size": 32,
+    "tuning_max_configs": 4,
+    "tuning_epochs": 8,
+    "tuning_patience": 2,
+    "stage1_epochs": 15,
+    "stage2_epochs": 20,
+    "stage1_lr": 0.001,
+    "stage2_lr": 3e-5,
+    "early_stop_stage1": 3,
+    "early_stop_stage2": 5,
+    "dropout_values": [0.2, 0.4],
+    "l2_values": [0.0001, 0.001],
+    "use_mixed_precision": true,
+    "mixed_precision_policy": "mixed_float16",
+    "enable_xla": false,
+    "gpu_memory_growth": true
+  },
+  "audit": {
+    "remove_exact_duplicates": true,
+    "phash_size": 32,
+    "phash_low_frequency_size": 8,
+    "phash_threshold": 4
+  },
+  "analysis": {
+    "threshold_min": 0.05,
+    "threshold_max": 0.95,
+    "threshold_steps": 181,
+    "bootstrap_samples": 1000,
+    "gradcam_examples_per_case": 3,
+    "latency_samples": 100,
+    "run_gradcam": true,
+    "run_latency": true
+  }
+}
