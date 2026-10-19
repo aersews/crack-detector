@@ -1,8 +1,10 @@
 import unittest
 from pathlib import Path
+import sys
 import pandas as pd
 import numpy as np
 from sklearn.metrics import accuracy_score, roc_auc_score, average_precision_score, brier_score_loss
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from src.analyze_predictions import validate, metric_values
 
 class TestPredictionAnalysis(unittest.TestCase):
