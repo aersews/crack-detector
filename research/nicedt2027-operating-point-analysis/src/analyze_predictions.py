@@ -94,12 +94,12 @@ def pairwise_surface_recall(df, n=2000, seed=20261219):
     draws = {}
     for surface in surfaces:
         d = df[df.surface == surface]
-        grouped = d.groupby("group_id").apply(
-            lambda g: pd.Series({
-                "fn": int(((g.label == 1) & (g.prediction == 0)).sum()),
-                "tp": int(((g.label == 1) & (g.prediction == 1)).sum()),
-            }),
-            include_groups=False,
+        group_frame = d.assign(
+            _fn=((d.label == 1) & (d.prediction == 0)).astype(int),
+            _tp=((d.label == 1) & (d.prediction == 1)).astype(int),
+        )
+        grouped = group_frame.groupby("group_id")[["_fn", "_tp"]].sum().rename(
+            columns={"_fn": "fn", "_tp": "tp"}
         ).sort_index()
         fn_counts = grouped["fn"].to_numpy(dtype=float)
         tp_counts = grouped["tp"].to_numpy(dtype=float)
