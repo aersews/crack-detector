@@ -1,0 +1,13 @@
+metric,estimate,ci_lower,ci_upper,bootstrap_replicates,seed,resampling_unit
+accuracy,0.854758,0.841791,0.867578,2000,20261019,"filename-prefix group, stratified by surface"
+balanced_accuracy,0.646217,0.630555,0.663576,2000,20261019,"filename-prefix group, stratified by surface"
+precision,0.530248,0.479413,0.579786,2000,20261019,"filename-prefix group, stratified by surface"
+recall,0.347247,0.317179,0.381043,2000,20261019,"filename-prefix group, stratified by surface"
+specificity,0.945187,0.934785,0.953949,2000,20261019,"filename-prefix group, stratified by surface"
+f1,0.419665,0.390056,0.450690,2000,20261019,"filename-prefix group, stratified by surface"
+mcc,0.350743,0.313861,0.389776,2000,20261019,"filename-prefix group, stratified by surface"
+roc_auc,0.783252,0.761656,0.805527,2000,20261019,"filename-prefix group, stratified by surface"
+average_precision,0.425358,0.387501,0.463382,2000,20261019,"filename-prefix group, stratified by surface"
+brier,0.134452,0.122173,0.146808,2000,20261019,"filename-prefix group, stratified by surface"
+majority_class_accuracy_baseline,0.848767,,,,,"observed label prevalence"
+accuracy_margin_over_majority_baseline_pp,0.599155,,,,,"percentage points"
