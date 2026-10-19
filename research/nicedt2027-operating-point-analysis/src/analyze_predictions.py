@@ -83,6 +83,56 @@ def bootstrap(df, n=2000, seed=20261019, unit="group", stratify_surface=True):
         for name in METRICS: values[name][b]=m[name]
     return {name:(float(np.nanquantile(arr,.025)),float(np.nanquantile(arr,.975))) for name,arr in values.items()}
 
+def pairwise_surface_recall(df, n=2000, seed=20261219):
+    """Independent group-bootstrap contrasts between recalls for each pair of surfaces."""
+    order = ["Deck", "Pavement", "Wall"]
+    surfaces = [s for s in order if s in set(df.surface)]
+    if len(surfaces) != 3:
+        raise ValueError(f"Expected surfaces {order}; found {sorted(df.surface.unique())}")
+    rng = np.random.default_rng(seed)
+    point = {}
+    draws = {}
+    for surface in surfaces:
+        d = df[df.surface == surface]
+        grouped = d.groupby("group_id").apply(
+            lambda g: pd.Series({
+                "fn": int(((g.label == 1) & (g.prediction == 0)).sum()),
+                "tp": int(((g.label == 1) & (g.prediction == 1)).sum()),
+            }),
+            include_groups=False,
+        ).sort_index()
+        fn_counts = grouped["fn"].to_numpy(dtype=float)
+        tp_counts = grouped["tp"].to_numpy(dtype=float)
+        point[surface] = float(tp_counts.sum() / (tp_counts.sum() + fn_counts.sum()))
+        group_positions = np.arange(len(grouped))
+        recall_draws = np.empty(n, dtype=float)
+        for replicate in range(n):
+            chosen = rng.choice(group_positions, size=len(group_positions), replace=True)
+            weights = np.bincount(chosen, minlength=len(grouped)).astype(float)
+            tp = float(np.dot(weights, tp_counts))
+            fn = float(np.dot(weights, fn_counts))
+            recall_draws[replicate] = tp / (tp + fn) if tp + fn else np.nan
+        draws[surface] = recall_draws
+    contrasts = [
+        ("Pavement recall - Deck recall", "Pavement", "Deck"),
+        ("Pavement recall - Wall recall", "Pavement", "Wall"),
+        ("Deck recall - Wall recall", "Deck", "Wall"),
+    ]
+    rows = []
+    for name, a, b in contrasts:
+        diff = (draws[a] - draws[b]) * 100
+        rows.append({
+            "contrast": name,
+            "difference_pp": (point[a] - point[b]) * 100,
+            "ci_lower_pp": float(np.nanquantile(diff, 0.025)),
+            "ci_upper_pp": float(np.nanquantile(diff, 0.975)),
+            "bootstrap_replicates": n,
+            "seed": seed,
+            "resampling_unit": "filename-prefix groups independently resampled within each surface",
+        })
+    return pd.DataFrame(rows)
+
+
 def run(input_csv, outdir, figdir, n=2000, seed=20261019):
     df=pd.read_csv(input_csv); audit=validate(df)
     outdir=Path(outdir); figdir=Path(figdir); outdir.mkdir(parents=True,exist_ok=True); figdir.mkdir(parents=True,exist_ok=True)
@@ -98,6 +148,7 @@ def run(input_csv, outdir, figdir, n=2000, seed=20261019):
         p=metric_values(g); ci_s=bootstrap(g,n,seed+i+1,"group",False)
         surface_rows.append({"surface":surface,"patches":len(g),"source_groups":g.group_id.nunique(),"recall":p["recall"],"recall_ci_low":ci_s["recall"][0],"recall_ci_high":ci_s["recall"][1],"specificity":p["specificity"],"specificity_ci_low":ci_s["specificity"][0],"specificity_ci_high":ci_s["specificity"][1],"balanced_accuracy":p["balanced_accuracy"],"roc_auc":p["roc_auc"],"average_precision":p["average_precision"]})
     surface=pd.DataFrame(surface_rows).sort_values("surface"); surface.to_csv(outdir/"surface_metrics.csv",index=False)
+    pairwise_surface_recall(df,n,seed+200).to_csv(outdir/"surface_recall_pairwise_differences.csv",index=False)
     patch_ci=bootstrap(df,n,seed+100,"patch",False)
     compare=[]
     for m in ["accuracy","balanced_accuracy","precision","recall","specificity","f1","mcc","brier"]:
@@ -106,7 +157,7 @@ def run(input_csv, outdir, figdir, n=2000, seed=20261019):
     pd.DataFrame(compare).to_csv(outdir/"patch_vs_source_bootstrap_comparison.csv",index=False)
     report={**audit,"metrics":point,"majority_class_accuracy_baseline":majority,
         "accuracy_margin_over_majority_baseline_pp":(point["accuracy"]-majority)*100,
-        "bootstrap":{"replicates":n,"seed":seed,"CI":"percentile 95%","primary_unit":"filename-prefix group"},
+        "bootstrap":{"replicates":n,"seed":seed,"surface_seed_base":seed+1,"patch_seed":seed+100,"pairwise_surface_seed":seed+200,"CI":"percentile 95%","primary_unit":"filename-prefix group"},
         "interpretation_limit":"Saved-prediction analysis only: no model retraining/inference; group IDs are filename-prefix proxies and require provenance confirmation."}
     (outdir/"integrity_and_analysis_report.json").write_text(json.dumps(report,indent=2,allow_nan=False))
     (outdir/"reproduction_config.json").write_text(json.dumps({"bootstrap_replicates":n,"seed":seed,"patch_seed":seed+100,"CI":"percentile 95%"},indent=2))
