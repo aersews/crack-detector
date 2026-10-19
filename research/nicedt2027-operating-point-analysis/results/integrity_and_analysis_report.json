@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "rows": 56079,
+  "unique_relative_paths": 56079,
+  "unique_group_ids": 230,
+  "label_counts": {
+    "0": 47598,
+    "1": 8481
+  },
+  "surface_patch_counts": {
+    "Pavement": 24334,
+    "Wall": 18137,
+    "Deck": 13608
+  },
+  "surface_group_counts": {
+    "Deck": 54,
+    "Pavement": 104,
+    "Wall": 72
+  },
+  "frozen_threshold": 0.31,
+  "prediction_threshold_consistency": true,
+  "group_id_rule": "Numeric prefix of the image filename; used as the cluster/resampling unit.",
+  "grouping_caveat": "Group IDs are filename-prefix clusters in the provided prediction file. Their use as source groups is conditional on the dataset naming convention; source photographs and the original model checkpoint were not independently inspected here.",
+  "analysis": {
+    "model": "MobileNetV3Small (as documented in saved result artifacts; checkpoint not independently inspected)",
+    "dataset": "SDNET2018 external-evaluation prediction artifact",
+    "frozen_threshold": 0.31,
+    "bootstrap_replicates": 2000,
+    "overall_cluster_bootstrap_seed": 20261019,
+    "surface_cluster_bootstrap_seed_base": 20261020,
+    "patch_bootstrap_seed": 20261119,
+    "pairwise_surface_contrast_seed": 20261219,
+    "confidence_interval": "Percentile 95% interval (2.5th and 97.5th percentiles)",
+    "point_metrics": {
+      "accuracy": 0.8547584657358369,
+      "balanced_accuracy": 0.6462167797444858,
+      "precision": 0.53024846957148,
+      "recall": 0.34724678693550287,
+      "specificity": 0.9451867725534686,
+      "f1": 0.41966512290701813,
+      "mcc": 0.35074298654954406,
+      "roc_auc": 0.7832520035404995,
+      "average_precision": 0.42535762412022116,
+      "brier": 0.13445213182142632
+    },
+    "majority_class_accuracy_baseline": 0.8487669180976837,
+    "accuracy_margin_over_majority_baseline_pp": 0.5991547638153238,
+    "warning": "Analysis is conditional on saved labels/probabilities/predictions. It does not retrain or rerun model inference. Group bootstrap assumes filename-prefix group IDs are a defensible cluster unit; original source images and checkpoint were not independently verified."
+  }
+}
