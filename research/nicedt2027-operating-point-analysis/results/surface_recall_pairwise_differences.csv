@@ -1,4 +1,4 @@
 contrast,difference_pp,ci_lower_pp,ci_upper_pp,bootstrap_replicates,seed,resampling_unit
-"Pavement recall - Deck recall",34.639062,27.009091,43.200590,2000,20261219,"filename-prefix groups, independently resampled within each surface"
-"Pavement recall - Wall recall",43.488306,37.102376,50.133969,2000,20261219,"filename-prefix groups, independently resampled within each surface"
-"Deck recall - Wall recall",8.849244,2.392582,15.347298,2000,20261219,"filename-prefix groups, independently resampled within each surface"
+"Pavement recall - Deck recall",34.639062,27.009091,43.200590,2000,20261219,"filename-prefix groups independently resampled within each surface"
+"Pavement recall - Wall recall",43.488306,37.102376,50.133969,2000,20261219,"filename-prefix groups independently resampled within each surface"
+"Deck recall - Wall recall",8.849244,2.392582,15.347298,2000,20261219,"filename-prefix groups independently resampled within each surface"
