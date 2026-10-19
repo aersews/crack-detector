@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="470" viewBox="0 0 900 470">
+<rect width="900" height="470" fill="white"/>
+<text x="450" y="34" text-anchor="middle" font-family="Arial" font-size="22" font-weight="bold">Crack recall at frozen threshold (0.31)</text>
+<text x="38" y="250" transform="rotate(-90 38 250)" text-anchor="middle" font-family="Arial" font-size="16">Recall (%)</text>
+<g stroke="#ddd" stroke-width="1"><line x1="120" y1="375" x2="820" y2="375"/><line x1="120" y1="305" x2="820" y2="305"/><line x1="120" y1="235" x2="820" y2="235"/><line x1="120" y1="165" x2="820" y2="165"/><line x1="120" y1="95" x2="820" y2="95"/></g>
+<g font-family="Arial" font-size="13" fill="#444" text-anchor="end"><text x="108" y="380">0</text><text x="108" y="310">20</text><text x="108" y="240">40</text><text x="108" y="170">60</text><text x="108" y="100">80</text></g>
+<g fill="#3b78a3"><rect x="190" y="276.7" width="110" height="98.3"/><rect x="415" y="155.5" width="110" height="219.5"/><rect x="640" y="307.6" width="110" height="67.4"/></g>
+<g stroke="#222" stroke-width="2" fill="none"><line x1="245" y1="256.9" x2="245" y2="314.6"/><line x1="230" y1="256.9" x2="260" y2="256.9"/><line x1="230" y1="314.6" x2="260" y2="314.6"/><line x1="470" y1="135.1" x2="470" y2="175.5"/><line x1="455" y1="135.1" x2="485" y2="135.1"/><line x1="455" y1="175.5" x2="485" y2="175.5"/><line x1="695" y1="297.2" x2="695" y2="318.9"/><line x1="680" y1="297.2" x2="710" y2="297.2"/><line x1="680" y1="318.9" x2="710" y2="318.9"/></g>
+<g font-family="Arial" font-size="15" fill="#111" text-anchor="middle"><text x="245" y="246">28.1%</text><text x="470" y="124">62.7%</text><text x="695" y="286">19.2%</text><text x="245" y="405">Deck</text><text x="470" y="405">Pavement</text><text x="695" y="405">Wall</text></g>
+<text x="450" y="448" text-anchor="middle" font-family="Arial" font-size="12" fill="#555">Intervals resample filename-prefix groups; source-image identity has not been independently verified.</text>
+</svg>
