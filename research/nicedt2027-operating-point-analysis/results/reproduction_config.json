@@ -1,0 +1,9 @@
+{
+  "n_bootstrap": 2000,
+  "seed_overall_groups": 20261019,
+  "seed_surface_group_base": 20261020,
+  "seed_patch_bootstrap": 20261119,
+  "seed_pairwise_contrasts": 20261219,
+  "ci_method": "percentile 95% bootstrap confidence interval",
+  "note": "Changing seeds or replicate count can change interval endpoints slightly."
+}
