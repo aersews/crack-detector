@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "Cite the associated paper when publication details are available."
+title: "Decision-Threshold Transfer and Source-Image-Level Uncertainty in Concrete-Crack Classification"
+version: 0.1.0
+date-released: 2026-10-19
+authors:
+  - family-names: Kumar
+    given-names: Chandan
+  - family-names: Alam
+    given-names: Md Mahtab
+  - family-names: Priya
+    given-names: Monali
+  - family-names: Aknan
+    given-names: Mohammad
+keywords:
+  - concrete crack classification
+  - uncertainty quantification
+  - external evaluation
+  - reproducibility
